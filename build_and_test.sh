@@ -1,0 +1,1 @@
+(gnatmake -g test_avm && gnatmake volea && gnatmake volem && ./rebuild && volec test_3.vole && volem test_3.volec Driver go 1 && volec test_4.vole && volem test_4.volec Driver go 1 && ./test_avm) | tee results.txt

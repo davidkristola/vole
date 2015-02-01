@@ -1,0 +1,15 @@
+.actor A_Test
+ F0 uint 0
+ F1 uint 1
+# F2 mdef Doit
+# F3 adef Sub_Actor
+
+..message CONSTRUCTOR
+  REPLY F0
+  STOP_FRAME
+
+..message Go
+  EMIT S0
+  EMIT F5
+  REPLY F0
+  STOP_FRAME

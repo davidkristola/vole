@@ -1,0 +1,66 @@
+# This is the test assembly code for asm test A11.
+
+.actor SuperClass
+..constants
+  C0 : bit_or_boolean := False
+  C1 : bit_or_boolean := True
+  C2 : uint := 1
+  C3 : uint := 2
+  C4 : str := "Recorder"
+..message CONSTRUCTOR
+  SET A0 := C0
+  TRAP L0 := C4 => C2 # send 1 to the Recorder trap
+  REPLY C0
+  STOP_FRAME
+..message Message_1
+  SET A0 := C0 # This needs to be overwritten in subclass
+  REPLY C2
+  STOP_FRAME
+..message Message_2
+...predicate 0
+  SET A0 := C0
+  TRAP L2 := C4 => C3 # send 2 to the Recorder trap
+  REPLY C3
+  STOP_FRAME
+
+.actor SubClass
+..subclassof SuperClass
+..constants
+  # The SuperClass constants must be repeated verbatim
+  C0 : bit_or_boolean := False
+  C1 : bit_or_boolean := True
+  C2 : uint := 1
+  C3 : uint := 2
+  C4 : str := "Recorder"
+  # end of repeat
+  C5 : mdef := CONSTRUCTOR
+..message CONSTRUCTOR
+  Super_Call L1 := C0 => C5
+  REPLY C0
+  STOP_FRAME
+..message Message_1
+  SET A0 := C1 # Corrects problem that was put in superclass for test
+  REPLY C2
+  STOP_FRAME
+
+.actor Test_A11
+..constants
+  C0 : uint := 0
+  C1 : uint := 1
+  C2 : uint := 2
+  C3 : uint := 3
+  C4 adef SubClass
+  C5 mdef Message_1
+  C6 mdef Message_2
+..message CONSTRUCTOR
+  REPLY C0
+  STOP_FRAME
+..message Go
+  NEW_ACTOR L0 := C1 => C4
+  ACTOR_CALL L2 := C0 => L0 . C6 # send Message_2 (should be blocked on predicate)
+  ACTOR_CALL L3 := C0 => L0 . C5 # send Message_1 (should release Message_2's predicate)
+  PEEK L4 := L2 => C0
+  PEEK L5 := L3 => C0
+  REPLY C0
+  STOP_FRAME
+

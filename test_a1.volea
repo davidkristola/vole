@@ -1,0 +1,76 @@
+# This is the test assembly code for asm test A1.
+# It should produce the same results as the code
+# in test 17.
+
+.actor Test_A1
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 uint 3
+ F4 uint 127
+ F5 uint 137
+ F6 uint 147
+ F7 uint 227
+ F8 uint 237
+ F9 uint 247
+ F10 uint 327
+ F11 uint 337
+ F12 uint 347
+ F13 adef Test_A1_Calculator
+ F14 mdef Compute
+ F15 : Tuple_Map := [F4 F5 F6]
+ F16 : Tuple_Map := [F7 F8 F9]
+ F17 : Tuple_Map := [F10 F11 F12]
+
+..message CONSTRUCTOR
+  REPLY F0
+  STOP_FRAME
+
+..message Go
+  NEW_ACTOR L1 F1 F13
+  NEW_ACTOR L2 F2 F13
+  NEW_ACTOR L3 F3 F13
+  FOLD L4 := F15
+  ACTOR_CALL L5 := L4 => L1 . F14
+  FOLD L6 := F16
+  ACTOR_CALL L7 := L6 => L2 . F14
+  FOLD L8 := F17
+  ACTOR_CALL L9 := L8 => L3 . F14
+  PEEK L10 L5 F0
+  PEEK L11 L5 F1
+  PEEK L12 L7 F0
+  PEEK L13 L7 F1
+  PEEK L15 L9 F0
+  PEEK L16 L9 F1
+  COMPUTE L0 := F0 + L10
+  COMPUTE L0 := L0 + L11
+  COMPUTE L0 := L0 + L12
+  COMPUTE L0 := L0 + L13
+  COMPUTE L0 := L0 + L15
+  COMPUTE L0 := L0 + L16
+  EMIT L0
+  TRAP L17 F1 L0
+  REPLY L0
+  STOP_FRAME
+
+.actor Test_A1_Calculator
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 uint 3
+ F4 : Tuple_Map := [L2 L3]
+
+..message CONSTRUCTOR
+  SET A0 S0
+  EMIT A0
+  REPLY F0
+  STOP_FRAME
+
+..message Compute
+  COMPUTE L0 := S0 + S1
+  COMPUTE L1 := S1 + S2
+  COMPUTE L2 := L1 - L0
+  SET L3 A0
+  FOLD L4 := F4
+  REPLY L4
+  STOP_FRAME

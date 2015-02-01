@@ -1,0 +1,17 @@
+actor BitCounter {
+   constructor () {};
+   message count_bits(value : Integer) returns (answer : Integer) {
+      return self.accumulate_bits(0, value);
+   }
+   method accumulate_bits(bits_so_far: Integer, value: Integer) returns (answer : Integer) {
+      if value = 0 then {
+         return bits_so_far;
+      } else {
+         if (value mod 2) = 0 then {
+            return accumulate_bits(bits_so_far, value/2); # tail recursion
+         } else {
+            return accumulate_bits(bits_so_far+1, value/2);
+         };
+      };
+   };
+};

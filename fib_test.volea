@@ -1,0 +1,38 @@
+.actor FibonacciHelper
+..constants
+  C0 : SIGNED_INTEGER := 1 # #4
+  C2 : TUPLE_MAP := [ L4 L3 I1] # #7
+  C1 : MESSAGE_DEFINITION := "compute" # compute
+..message CONSTRUCTOR
+  SET A0 := I0 # Depth := depth
+  STOP_FRAME
+..message compute
+  COMPUTE L1 := A0 = I0
+  BRANCH_REL L1 5
+  COMPUTE L3 := I1 + I2
+  COMPUTE L4 := I0 + C0
+  FOLD2 L5 := C2 # [ L4 L3 I1]
+  SELF_TAIL_CALL L5 => C1
+  JUMP_REL  1
+  REPLY I2
+  STOP_FRAME
+.actor Fibonacci
+..constants
+  C1 : TUPLE_MAP := [ I0] # #9
+  C4 : SIGNED_INTEGER := 1 # #11
+  C3 : SIGNED_INTEGER := 1 # #12
+  C2 : SIGNED_INTEGER := 0 # #13
+  C6 : TUPLE_MAP := [ C4 C3 C2] # #15
+  C5 : MESSAGE_DEFINITION := "compute" # compute
+  C0 : ACTOR_DEFINITION := "FibonacciHelper" # FibonacciHelper
+..message CONSTRUCTOR
+  STOP_FRAME
+..message Compute
+  FOLD2 L2 := C1 # [ I0]
+  NEW_ACTOR L1 := L2 => C0
+  FOLD2 L4 := C6 # [ C4 C3 C2]
+  ACTOR_CALL L3 := L4 => L1 . C5
+  PEEK_IMMEDIATE L0 := L3 [ 0 ]
+  EMIT L0
+  REPLY L0
+  STOP_FRAME

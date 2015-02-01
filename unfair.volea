@@ -1,0 +1,160 @@
+.actor TargetActor
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 str "Ouch "
+ F4 uint 4
+
+..message CONSTRUCTOR
+  SET I0 F0
+  SET I1 F1
+  REPLY F0
+  STOP_FRAME
+
+..message Spitball
+  ADD I0 I0 F1
+  BRANCH_LT T F I0 I1 F4
+  REPLY F0
+  STOP_FRAME
+  SET L0 F3
+  SET L1 I0
+  FOLD L2 L0 F2
+  TRAP L3 F1 L2
+  MULTIPLY I1 I1 F2
+  REPLY F0
+  STOP_FRAME
+
+.actor SpitballActor
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 mdef Spitball
+
+
+..message CONSTRUCTOR
+  SET I0 S0 # save target
+  SET L0 F0
+  FOLD I1 L0 F1
+  REPLY F0
+  STOP_FRAME
+
+..message MachineGun
+  SEND T F I1 I0 F3
+  PEEK L0 I2 F0 # block on reply
+  JUMP F0
+
+.actor CpuHogActor
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 str "I'm not dead yet!"
+ F4 uint 1001
+ F5 uint 10000001
+ F6 uint 5
+
+..message CONSTRUCTOR
+  FOLD I0 F3 F1
+  REPLY F0
+  STOP_FRAME
+
+..message Start
+  SET L0 F1 # i loop
+  SET L1 F1 # j loop
+  BRANCH_EQ T F L0 F1 F6
+  BRANCH_EQ T F L1 F1 F6
+    # i = 1 and j = 1
+    TRAP L2 F1 I0
+  # end if
+  ADD L1 L1 F1
+  BRANCH_EQ F F L1 F5 F1
+  ADD L0 L0 F1
+  BRANCH_EQ F F L0 F4 F0
+  JUMP F2
+
+.actor Main
+ F0 uint 0
+ F1 uint 1
+ F2 uint 2
+ F3 mdef MachineGun
+ F4 adef SpitballActor
+ F5 adef TargetActor
+ F6 mdef Start
+ F7 adef CpuHogActor
+ F8 adef Baton
+ F9 mdef Link
+
+..message CONSTRUCTOR
+  REPLY F0
+  STOP_FRAME
+
+..message Go
+  NEW_ACTOR L0 F5 F0
+  NEW_ACTOR L1 F4 L0
+  FOLD L2 F0 F1
+  SEND F F L2 L1 F3
+  NEW_ACTOR L4 F7 F0
+  SEND F F L2 L4 F6
+  EMIT S0
+  NEW_ACTOR L5 F8 F1
+  SET L6 S0
+  FOLD L7 L5 F2
+  SEND F F L7 L5 F9
+  REPLY F0
+  STOP_FRAME
+
+
+.actor Baton
+ F0 uint 0
+ F1 uint 1
+ F2 adef Baton
+ F3 mdef Link
+ F4 mdef Pass
+ F5 uint 5
+ F6 uint 8
+ F7 uint 9
+ F8 str "Starting The Baton..."
+ F9 uint 13
+ F10 str "Baton rounds:"
+ F11 uint 2
+ F12 uint 6
+
+..message CONSTRUCTOR
+  SET I0 S0
+  REPLY F0
+  STOP_FRAME
+
+..message Link
+  # S0 is the first in the circle
+  # S1 is the current count: if 1, link to S0, else create a next and give it S1-1
+  # if I am not the last in the link
+  BRANCH_EQ F F S1 F1 F6
+  # then
+  ADD L0 I0 F1
+  NEW_ACTOR I1 F2 L0
+  SET L1 S0
+  SUBTRACT L2 S1 F1
+  FOLD L3 L1 F11
+  SEND F F L3 I1 F3
+  JUMP F7
+  # else
+  SET I1 S0
+  # end if
+  BRANCH_EQ T F I0 F1 F9
+   TRAP L9 F1 F8
+   FOLD L4 F1 F1
+   SEND F F L4 I1 F4
+  REPLY F0
+  STOP_FRAME
+
+..message Pass
+  SET L1 S0
+  BRANCH_EQ T F I0 F1 F12
+   SET L0 F10
+   FOLD L2 L0 F11
+   TRAP L3 F1 L2
+   ADD L1 S0 F1
+  FOLD L4 L1 F1
+  SEND F F L4 I1 F4
+  REPLY F0
+  STOP_FRAME
+

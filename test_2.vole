@@ -1,0 +1,30 @@
+# this is a comment
+
+actor FibonacciHelper {
+
+   attribute Depth : Integer;
+
+   constructor(depth : Integer) {
+      self.Depth := depth;
+   }
+
+   message compute(level : Integer, fibk : Integer, fibk1 : Integer)
+   returns (Answer : Integer) {
+      if self.Depth = level then
+         return fibk1;
+      else
+         return self.compute(level + 1, fibk + fibk1, fibk);
+      endif;
+   }
+}
+
+actor Fibonacci {
+   constructor() {}
+   message Compute(value : Integer)
+   returns (answer : Integer) {
+      local calculator : Actor := FibonacciHelper(value);
+      answer := calculator.compute(1, 1, 0);
+      emit answer; # debug output to console
+      return;
+   }
+}

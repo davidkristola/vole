@@ -1,0 +1,126 @@
+actor TargetActor {
+   attribute count : Integer;
+   attribute limit : Integer;
+   constructor () {
+      self.count := 0;
+      self.limit := 1;
+   };
+   message Spitball(number : Integer) returns () {
+      self.count := self.count + 1;
+      if self.count >= self.limit then {
+         emit "Ouch!";
+         emit self.count;
+         self.limit := self.limit * 2;
+      };
+   };
+};
+
+actor SpitballActor {
+   attribute target : Actor;
+   constructor (target : Actor) {
+      self.target := target;
+   };
+   message execute() returns () {
+      while True loop {
+         send target.Spitball(1);
+      };
+   };
+};
+
+actor CpuHogActor {
+   constructor () {
+      send self.go();
+   };
+   message go() returns () {
+      local i : Integer := 0;
+      local j : Integer := 0;
+      loop {
+         j := 0;
+         while j < 100 loop {
+            i := 0;
+            while i < 1000 loop {
+               if i = j then {
+                  emit "I'm not dead yet!";
+               };
+               i := i + 1;
+            };
+            j := j + 1;
+         };
+      };
+   };
+};
+
+actor Baton {
+   attribute my_next : Actor;
+   attribute id : Integer;
+   constructor () {};
+   message link(first : Actor, count : Integer) returns () {
+      self.id := count;
+      if count = 0 then {
+         self.my_next := first;
+      } else {
+         self.my_next := new Baton();
+         send self.my_next.link(first, count - 1);
+      };
+   };
+   message pass_along(rounds : Integer) returns () {
+      local passes : Integer := rounds;
+      if self.id = 0 then {
+         emit "The baton has gone around this many times:";
+         emit passes;
+         passes := passes + 1;
+      };
+      send self.my_next.pass_along(passes);
+   };
+};
+
+actor NaiveFibonacci {
+   constructor() {};
+   message compute(n : Integer) returns (answer : Integer) {
+      if n <= 1 then {
+         answer := n;
+      } else {
+         local fib_1 : Actor := new NaiveFibonacci();
+         local fib_2 : Actor := new NaiveFibonacci();
+         local n_minus_1 : Integer;
+         local n_minus_2 : Integer;
+         n_minus_1 := fib_1.compute(n-1);
+         n_minus_2 := fib_2.compute(n-2);
+         answer := n_minus_1 + n_minus_2;
+      };
+      return answer;
+   };
+};
+
+actor FibTester {
+   constructor () {
+      send self.go();
+   };
+   message go() returns () {
+      local fib : Actor := new NaiveFibonacci();
+      local i : Integer := 0;
+      local answer : Integer;
+      loop {
+         answer := fib.compute(i);
+         emit "Fibonacci";
+         emit answer;
+         i := i + 1;
+      };
+   };
+};
+
+actor Driver {
+   constructor () {};
+
+   message go(value : Integer) returns () {
+      local target : Actor := new TargetActor();
+      local spitter : Actor := new SpitballActor(target);
+      send spitter.execute();
+      local hog : Actor := new CpuHogActor();
+      local ring : Actor := new Baton();
+      send ring.link(ring, value);
+      send ring.pass_along(0);
+      local fib : Actor := new FibTester();
+      emit "setup complete!";
+   };
+};
