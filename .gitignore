@@ -3,3 +3,10 @@
 
 *.o
 obj/*
+comm_test_06_stream_data.bin
+
+test_a10.volec
+
+test_a11.volec
+
+test_a6.volec
