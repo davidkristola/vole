@@ -9,7 +9,7 @@
 %token Key_Elseif
 %token Key_Endif
 %token Key_When
-%token Key_While Key_Do Key_Loop
+%token Key_While Key_Loop
 %token Key_For
 %token Key_Case
 %token Key_Local
@@ -286,8 +286,7 @@ statement
    ;
 
 statement_loop
-   : Key_While expression Key_Do   code_block {Build_While($$.Node, Line_Number, $2.Node, $4.Node);} -- depricated
-   | Key_While expression Key_Loop code_block {Build_While($$.Node, Line_Number, $2.Node, $4.Node);}
+   : Key_While expression Key_Loop code_block {Build_While($$.Node, Line_Number, $2.Node, $4.Node);}
    |                      Key_Loop code_block {Build_While($$.Node, Line_Number, null,    $2.Node);}
    ;
 

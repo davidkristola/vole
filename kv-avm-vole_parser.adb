@@ -749,24 +749,23 @@ yy.value_stack(yy.tos).Node);
 when  74 =>
 --#line  290
 Build_While(
-yyval.Node, Line_Number, 
-yy.value_stack(yy.tos-2).Node, 
-yy.value_stack(yy.tos).Node);
-
-when  75 =>
---#line  291
-Build_While(
 yyval.Node, Line_Number, null,    
 yy.value_stack(yy.tos).Node);
 
-when  76 =>
---#line  295
+when  75 =>
+--#line  294
 Build_Assert(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos).Node);
 
+when  76 =>
+--#line  298
+ 
+yyval.Node := 
+yy.value_stack(yy.tos).Node;
+
 when  77 =>
---#line  299
+--#line  302
  
 yyval.Node := 
 yy.value_stack(yy.tos).Node;
@@ -778,48 +777,48 @@ yyval.Node :=
 yy.value_stack(yy.tos).Node;
 
 when  79 =>
---#line  304
- 
-yyval.Node := 
-yy.value_stack(yy.tos).Node;
-
-when  80 =>
---#line  308
+--#line  307
 Build_If(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos-4).Node, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  81 =>
---#line  312
+when  80 =>
+--#line  311
  
 yyval.Node := null;
 
-when  82 =>
---#line  313
+when  81 =>
+--#line  312
  
 yyval.Node := 
 yy.value_stack(yy.tos).Node;
 
-when  83 =>
---#line  314
+when  82 =>
+--#line  313
 Build_If(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos-5).Node, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos-1).Node);
 
-when  84 =>
---#line  318
+when  83 =>
+--#line  317
 Build_Return(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos).Node);
 
+when  84 =>
+--#line  321
+ 
+yyval.Node := null;
+
 when  85 =>
 --#line  322
  
-yyval.Node := null;
+yyval.Node := 
+yy.value_stack(yy.tos).Node;
 
 when  86 =>
 --#line  323
@@ -846,72 +845,72 @@ yyval.Node :=
 yy.value_stack(yy.tos).Node;
 
 when  90 =>
---#line  327
- 
-yyval.Node := 
-yy.value_stack(yy.tos).Node;
-
-when  91 =>
---#line  332
+--#line  331
  
 yyval.Node := 
 yy.value_stack(yy.tos-1).Node; 
 
-when  92 =>
---#line  336
+when  91 =>
+--#line  335
 Put_Line("unimp 30");
 
-when  93 =>
---#line  341
+when  92 =>
+--#line  340
 Put_Line("unimp 29");
 
-when  94 =>
---#line  345
+when  93 =>
+--#line  344
 Build_Send_Statement(
 yyval.Node, Line_Number, Self, null, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  95 =>
---#line  349
+when  94 =>
+--#line  348
 Build_Send_Statement(
 yyval.Node, Line_Number, Actor, 
 yy.value_stack(yy.tos-3).Node, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  96 =>
---#line  353
+when  95 =>
+--#line  352
 Build_Call_Statement(
 yyval.Node, Line_Number, Self, null, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  97 =>
---#line  357
+when  96 =>
+--#line  356
 Build_Call_Statement(
 yyval.Node, Line_Number, Super, null, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  98 =>
---#line  361
+when  97 =>
+--#line  360
 Build_Call_Statement(
 yyval.Node, Line_Number, Actor, 
 yy.value_stack(yy.tos-3).Node, 
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  99 =>
---#line  365
+when  98 =>
+--#line  364
 Build_Assignment(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  100 =>
---#line  366
+when  99 =>
+--#line  365
 Raise_Exception(Unimplemented_Error'IDENTITY, "Rule statement_assign (tuple)");
+
+when  100 =>
+--#line  369
+ 
+yyval.Node := 
+yy.value_stack(yy.tos).Node;
 
 when  101 =>
 --#line  370
@@ -932,71 +931,65 @@ yyval.Node :=
 yy.value_stack(yy.tos).Node;
 
 when  104 =>
---#line  373
- 
-yyval.Node := 
-yy.value_stack(yy.tos).Node;
-
-when  105 =>
---#line  377
+--#line  376
  Build_Op_Expression(
 yyval.Node, Line_Number, Op_Pos, null, 
 yy.value_stack(yy.tos).Node); 
 
-when  106 =>
---#line  381
+when  105 =>
+--#line  380
  Build_Kind(
 yyval.Node, Line_Number, Actor_Definition, New_Constructor_Send(
 yy.value_stack(yy.tos-1).Node, 
 yy.value_stack(yy.tos).Node)); 
 
-when  107 =>
---#line  386
+when  106 =>
+--#line  385
 Build_Var_Expression(
 yyval.Node, Line_Number, True, 
 yy.value_stack(yy.tos).Node);
 
-when  108 =>
---#line  388
+when  107 =>
+--#line  387
 Build_Var_Expression(
 yyval.Node, Line_Number, False, 
 yy.value_stack(yy.tos).Node);
 
+when  108 =>
+--#line  391
+Put_Line("unimp 35");
+
 when  109 =>
 --#line  392
-Put_Line("unimp 35");
+Put_Line("unimp 36");
 
 when  110 =>
 --#line  393
-Put_Line("unimp 36");
+Put_Line("unimp 37");
 
 when  111 =>
 --#line  394
-Put_Line("unimp 37");
-
-when  112 =>
---#line  395
 Put_Line("unimp 38");
 
-when  113 =>
---#line  399
+when  112 =>
+--#line  398
  
 yyval.Node := null;
 
+when  113 =>
+--#line  400
+ 
+yyval.Node := 
+yy.value_stack(yy.tos).Node; 
+
 when  114 =>
---#line  401
+--#line  405
  
 yyval.Node := 
 yy.value_stack(yy.tos).Node; 
 
 when  115 =>
---#line  406
- 
-yyval.Node := 
-yy.value_stack(yy.tos).Node; 
-
-when  116 =>
---#line  408
+--#line  407
 
          
 yyval.Node := 
@@ -1008,148 +1001,154 @@ yyval.Node,
 yy.value_stack(yy.tos).Node);
       
 
+when  116 =>
+--#line  415
+Build_Op_Expression(
+yyval.Node, Line_Number, Add, 
+yy.value_stack(yy.tos-2).Node, 
+yy.value_stack(yy.tos).Node);
+
 when  117 =>
 --#line  416
 Build_Op_Expression(
-yyval.Node, Line_Number, Add, 
+yyval.Node, Line_Number, Sub, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  118 =>
 --#line  417
 Build_Op_Expression(
-yyval.Node, Line_Number, Sub, 
+yyval.Node, Line_Number, Mul, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  119 =>
 --#line  418
 Build_Op_Expression(
-yyval.Node, Line_Number, Mul, 
+yyval.Node, Line_Number, Div, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  120 =>
 --#line  419
 Build_Op_Expression(
-yyval.Node, Line_Number, Div, 
+yyval.Node, Line_Number, Modulo, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  121 =>
 --#line  420
 Build_Op_Expression(
-yyval.Node, Line_Number, Modulo, 
+yyval.Node, Line_Number, Exp, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  122 =>
 --#line  421
 Build_Op_Expression(
-yyval.Node, Line_Number, Exp, 
+yyval.Node, Line_Number, Eq, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  123 =>
 --#line  422
 Build_Op_Expression(
-yyval.Node, Line_Number, Eq, 
+yyval.Node, Line_Number, Neq, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  124 =>
 --#line  423
 Build_Op_Expression(
-yyval.Node, Line_Number, Neq, 
+yyval.Node, Line_Number, L_t, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  125 =>
 --#line  424
 Build_Op_Expression(
-yyval.Node, Line_Number, L_t, 
+yyval.Node, Line_Number, Lte, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  126 =>
 --#line  425
 Build_Op_Expression(
-yyval.Node, Line_Number, Lte, 
+yyval.Node, Line_Number, G_t, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  127 =>
 --#line  426
 Build_Op_Expression(
-yyval.Node, Line_Number, G_t, 
+yyval.Node, Line_Number, Gte, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  128 =>
 --#line  427
 Build_Op_Expression(
-yyval.Node, Line_Number, Gte, 
+yyval.Node, Line_Number, Shift_Left, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  129 =>
 --#line  428
 Build_Op_Expression(
-yyval.Node, Line_Number, Shift_Left, 
+yyval.Node, Line_Number, Shift_Right, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  130 =>
 --#line  429
 Build_Op_Expression(
-yyval.Node, Line_Number, Shift_Right, 
+yyval.Node, Line_Number, B_And, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  131 =>
 --#line  430
 Build_Op_Expression(
-yyval.Node, Line_Number, B_And, 
+yyval.Node, Line_Number, B_Or , 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  132 =>
 --#line  431
 Build_Op_Expression(
-yyval.Node, Line_Number, B_Or , 
+yyval.Node, Line_Number, B_Xor, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
 when  133 =>
 --#line  432
-Build_Op_Expression(
-yyval.Node, Line_Number, B_Xor, 
-yy.value_stack(yy.tos-2).Node, 
-yy.value_stack(yy.tos).Node);
-
-when  134 =>
---#line  433
  
 yyval.Node := 
 yy.value_stack(yy.tos-1).Node;
 
+when  134 =>
+--#line  433
+Build_Op_Expression(
+yyval.Node, Line_Number, Negate, 
+yy.value_stack(yy.tos).Node);
+
 when  135 =>
 --#line  434
 Build_Op_Expression(
-yyval.Node, Line_Number, Negate, 
+yyval.Node, Line_Number, Op_Neg, 
 yy.value_stack(yy.tos).Node);
 
 when  136 =>
 --#line  435
 Build_Op_Expression(
-yyval.Node, Line_Number, Op_Neg, 
+yyval.Node, Line_Number, Op_Pos, 
 yy.value_stack(yy.tos).Node);
 
 when  137 =>
 --#line  436
-Build_Op_Expression(
-yyval.Node, Line_Number, Op_Pos, 
-yy.value_stack(yy.tos).Node);
+ 
+yyval.Node := 
+yy.value_stack(yy.tos).Node;
 
 when  138 =>
 --#line  437
@@ -1158,31 +1157,30 @@ yyval.Node :=
 yy.value_stack(yy.tos).Node;
 
 when  139 =>
---#line  438
- 
-yyval.Node := 
-yy.value_stack(yy.tos).Node;
+--#line  441
+Build_Literal_Expression(
+yyval.Node, Line_Number, Signed_Integer, yytext);
 
 when  140 =>
 --#line  442
 Build_Literal_Expression(
-yyval.Node, Line_Number, Signed_Integer, yytext);
+yyval.Node, Line_Number, Floatingpoint, yytext);
 
 when  141 =>
 --#line  443
 Build_Literal_Expression(
-yyval.Node, Line_Number, Floatingpoint, yytext);
+yyval.Node, Line_Number, Immutable_String, yytext);
 
 when  142 =>
 --#line  444
-Build_Literal_Expression(
-yyval.Node, Line_Number, Immutable_String, yytext);
-
-when  143 =>
---#line  445
  
 yyval.Node := 
 yy.value_stack(yy.tos).Node;
+
+when  143 =>
+--#line  448
+Build_Literal_Expression(
+yyval.Node, Line_Number, Bit_Or_Boolean, yytext);
 
 when  144 =>
 --#line  449
@@ -1190,19 +1188,14 @@ Build_Literal_Expression(
 yyval.Node, Line_Number, Bit_Or_Boolean, yytext);
 
 when  145 =>
---#line  450
-Build_Literal_Expression(
-yyval.Node, Line_Number, Bit_Or_Boolean, yytext);
-
-when  146 =>
---#line  455
+--#line  454
 Build_Var_Def(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos-2).Node, 
 yy.value_stack(yy.tos).Node);
 
-when  147 =>
---#line  459
+when  146 =>
+--#line  458
 Build_Emit(
 yyval.Node, Line_Number, 
 yy.value_stack(yy.tos).Node);

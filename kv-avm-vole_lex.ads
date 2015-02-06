@@ -4,7 +4,7 @@ with vole_lex_dfa; use vole_lex_dfa;
 with vole_lex_io; use vole_lex_io; 
 --# line 1 "vole_lex.l"
 --FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}{EXPONENT}?
---# line 9 "vole_lex.l"
+--# line 12 "vole_lex.l"
 
 
 with Vole_Tokens;

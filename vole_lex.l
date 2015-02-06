@@ -1,7 +1,10 @@
 
 DIGIT_SEQUENCE    [0-9]([_]?[0-9])*
+
 HEX_SEQUENCE      [0-9a-fA-F]([_]?[0-9a-fA-F])*
+
 EXPONENT          [eE][-+]?{DIGIT_SEQUENCE}
+
 --FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}{EXPONENT}?
 FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}
 
@@ -33,7 +36,6 @@ FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}
 "tuple"     { return Key_Tuple; }
 "when"      { return Key_When; }
 "while"     { return Key_While; }
-"do"        { return Key_Do; }
 "loop"      { return Key_Loop; }
 "new"       { return Key_New; }
 "predicate" { return Key_Predicate; }
@@ -72,7 +74,9 @@ FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}
 [a-zA-Z]([_]?[a-zA-Z0-9])*     { return Id_Token; }
 
 ([0-9]([_]?[0-9])*)[\.]([0-9]([_]?[0-9])*)([eE][-+]?([0-9]([_]?[0-9])*))?  { return Float_Literal; }
+
 [0-9]([_]?[0-9])*              { return Integer_Literal; }
+
 \"(\\.|[^\\"])*\"              { return String_Literal; }
 
 ":"         { return Colon_Token; }
@@ -88,7 +92,9 @@ FLOAT_SEQUENCE    {DIGIT_SEQUENCE}[.]{DIGIT_SEQUENCE}
 
 "#".*       { null; }
 [\n]        { Inc_Line; }
+
 [\t ]+      { null; }
+
 
 %%
 
