@@ -20,3 +20,12 @@ test_3.volec
 test_3.dot
 
 kv-avm-vole_parser.adb-change_using_sed
+
+language_tests/*.dot
+
+language_tests/*.volec
+
+language_tests/results.txt
+
+
+results.txt

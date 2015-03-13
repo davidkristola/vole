@@ -1,0 +1,102 @@
+actor FibonacciHelper {
+
+   attribute Depth : Integer;
+
+   constructor(depth : Integer) {
+      self.Depth := depth;
+   };
+
+   message compute(level : Integer, fibk : Integer, fibk1 : Integer)
+   returns (Answer : Integer) {
+      if self.Depth = level then {
+         return fibk1;
+      } else {
+         return self.compute(level + 1, fibk + fibk1, fibk);
+      };
+   };
+};
+
+actor TestPredicates {
+   attribute count : Integer;
+   predicate when_1;
+   predicate when_2;
+   predicate when_3;
+   predicate when_4;
+   constructor () {
+      self.count := 0;
+      self.when_1 := True;
+      self.when_2 := False;
+      self.when_3 := False;
+      self.when_4 := False;
+   };
+   when when_1 message message_1(amount : Integer) returns (answer : Integer) {
+      self.count := self.count + 1;
+      answer := 1;
+      assert self.count = answer;
+      self.when_1 := False;
+      self.when_2 := True;
+      return answer;
+   };
+   when when_2 message message_2(amount : Integer) returns (answer : Integer) {
+      self.count := self.count + 1;
+      answer := 2;
+      assert self.count = answer;
+      self.when_2 := False;
+      self.when_3 := True;
+      return answer;
+   };
+   when when_3 message message_3(amount : Integer) returns (answer : Integer) {
+      self.count := self.count + 1;
+      answer := 3;
+      assert self.count = answer;
+      self.when_3 := False;
+      self.when_4 := True;
+      return answer;
+   };
+   when when_4 message message_4(amount : Integer) returns (answer : Integer) {
+      self.count := self.count + 1;
+      answer := 4;
+      assert self.count = answer;
+      self.when_4 := False;
+      self.when_1 := True;
+      return answer;
+   };
+};
+
+actor Driver {
+   constructor () {};
+
+   message go(value : Integer)
+   returns (answer : Integer) {
+      local calculator : Actor := new FibonacciHelper(17);
+      answer := calculator.compute(1, 1, 0);
+      emit answer; # debug output to console
+      assert (answer = 987);
+      send self.go2();
+      local predicate_test : Actor := new TestPredicates();
+      local got : Integer;
+      send predicate_test.message_4(15);
+      send predicate_test.message_2(15);
+      send predicate_test.message_3(15);
+      got := predicate_test.message_1(5);
+      assert got = 1;
+      return;
+   };
+
+   message go2()
+   returns () {
+      local test : Boolean := True;
+      emit test;
+      assert test;
+      local value : Integer := 5 * 2 + 1;
+      emit value;
+      assert value = 11;
+      local three : Integer := 3;
+      local four : Integer;
+      four := 4;
+      value := 1 + three * four;
+      emit value;
+      assert value = 13;
+   };
+};
+      
