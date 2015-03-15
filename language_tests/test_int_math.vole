@@ -1,0 +1,19 @@
+actor Driver {
+   constructor () {};
+
+   message go(unused : Integer)
+   returns () {
+      local test : Boolean := True;
+      emit test;
+      assert test;
+      local value : Integer := 5 * 2 + 1;
+      emit value;
+      assert value = 11;
+      local three : Integer := 3;
+      local four : Integer;
+      four := 4;
+      value := 1 + three * four;
+      emit value;
+      assert value = 13;
+   };
+};
