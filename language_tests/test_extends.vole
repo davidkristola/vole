@@ -1,0 +1,44 @@
+actor BaseClass {
+
+   constructor() {};
+
+   message compute(Arg : Integer) returns (Answer : Integer) {
+      local A : Integer;
+      A := self.part_a(Arg);
+      local B : Integer;
+      B := self.part_b(A);
+      return B;
+   };
+   message part_a(Arg : Integer) returns (Answer : Integer) {
+      return Arg + 1;
+   };
+   message part_b(Arg : Integer) returns (Answer : Integer) {
+      return Arg * 2;
+   };
+};
+
+actor SubClass extends BaseClass {
+   constructor() {};
+   message part_a(Arg : Integer) returns (Answer : Integer) {
+      return Arg + 2;
+   };
+};
+
+actor Driver {
+   constructor() {};
+
+   message go(value : Integer) returns () {
+      local base_calculator : Actor := new BaseClass();
+      #local answer : Integer := base_calculator.compute(1);
+      local answer : Integer;
+      answer := base_calculator.compute(1);
+      emit answer;
+      assert (answer = 4);
+
+      local sub_calculator : Actor := new SubClass();
+      local result : Integer;
+      result := sub_calculator.compute(1);
+      emit result;
+      assert (result = 6);
+   };
+};

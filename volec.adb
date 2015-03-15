@@ -66,11 +66,11 @@ procedure volec is
       kv.avm.vole_parser.yyparse;
       Vole_Lex_IO.close_input;
       Vole_Lex_IO.close_output;
-   
+
       Rewriter.Init;
       kv.avm.vole_tree.Get_Program.Visit(Rewriter'ACCESS, 0);
       Rewriter.Finalize;
-   
+
       Grapher.Init(Sans_Extension(File_Name) & "dot");
       kv.avm.vole_tree.Get_Program.Visit(Grapher'ACCESS, 0);
       Grapher.Finalize;

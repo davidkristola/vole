@@ -1,0 +1,18 @@
+actor Driver {
+   constructor () {};
+
+   message go(value : Integer) returns (answer : Integer) {
+      answer := value;
+      while (answer > 1) loop {
+         answer := self.decrement(answer);
+      };
+      #local note : String := "Done!";
+      #emit note;
+      emit "Done!";
+      return;
+   };
+
+   message decrement(a_number : Integer) returns (answer : Integer) {
+      return a_number - 1;
+   };
+};

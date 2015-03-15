@@ -27,5 +27,8 @@ language_tests/*.volec
 
 language_tests/results.txt
 
+language_tests/*.results_actual
+
+language_tests/*.compile_log
 
 results.txt

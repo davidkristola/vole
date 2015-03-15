@@ -1,0 +1,7 @@
+actor Driver {
+   constructor() {};
+
+   message go(value : Integer) returns () {
+      assert False;
+   };
+};
