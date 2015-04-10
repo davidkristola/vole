@@ -1,0 +1,7 @@
+volem -- the vole virtual machine processing test_predicates.volec
+Running...
+Emit:Processing message_1
+Emit:Processing message_2
+Emit:Processing message_3
+Emit:Processing message_4
+Completed after  61 steps.

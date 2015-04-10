@@ -12,6 +12,7 @@ actor TestPredicates {
       self.when_4 := False;
    };
    when when_1 message message_1(amount : Integer) returns (answer : Integer) {
+      emit "Processing message_1";
       self.count := self.count + 1;
       answer := 1;
       assert self.count = answer;
@@ -20,6 +21,7 @@ actor TestPredicates {
       return answer;
    };
    when when_2 message message_2(amount : Integer) returns (answer : Integer) {
+      emit "Processing message_2";
       self.count := self.count + 1;
       answer := 2;
       assert self.count = answer;
@@ -28,6 +30,7 @@ actor TestPredicates {
       return answer;
    };
    when when_3 message message_3(amount : Integer) returns (answer : Integer) {
+      emit "Processing message_3";
       self.count := self.count + 1;
       answer := 3;
       assert self.count = answer;
@@ -36,6 +39,7 @@ actor TestPredicates {
       return answer;
    };
    when when_4 message message_4(amount : Integer) returns (answer : Integer) {
+      emit "Processing message_4";
       self.count := self.count + 1;
       answer := 4;
       assert self.count = answer;
