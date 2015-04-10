@@ -108,9 +108,9 @@ function execute_one_test() {
 }
 
 function execute_tests() {
-   for test_file in *.volec ; do
-      execute_one_test ${test_file};
-   done
+	for test_file in *.volec ; do
+		execute_one_test ${test_file};
+	done
 }
 
 (
