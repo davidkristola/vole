@@ -1,0 +1,40 @@
+actor Filter {
+
+   attribute Prime : Integer;
+   attribute Ready : Boolean;
+   attribute Next : Actor;
+
+   constructor(Prime : Integer) {
+      self.Prime := Prime;
+      emit Prime;
+      self.Ready := False;
+   };
+
+   method forward(value : Integer) returns () {
+      if self.Ready then {
+         send self.Next(value);
+      } else {
+         self.Next := new Filter(value);
+         self.Ready := True;
+      };
+   };
+
+   message filter(value : Integer) returns () {
+      if value % self.Prime /= 0 then {
+         return self.forward(value);
+      };
+   };
+};
+
+actor Driver {
+   constructor () {};
+
+   message go(maximum : Integer) returns () {
+      local calculator : Actor := new Filter(2);
+      local value : Integer := 2;
+      while value <= 1000 loop {
+         send calculator.filter(value);
+         value := value + 1;
+      };
+   };
+};
