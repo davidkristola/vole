@@ -446,6 +446,25 @@ package body kv.avm.Test is
    end Run_Test;
 
    -----------------------------------------------------------------------------
+   function Name (T : Test_4b) return AUnit.Message_String is
+      pragma Unreferenced (T);
+   begin
+      return AUnit.Format ("test 04b: MOD, ....");
+   end Name;
+
+   procedure Run_Test (T : in out Test_4b) is
+   begin
+      Put_Line("test 04b");
+      T.c(0) := (op_code => COMPUTE, action => Modulo, result => L0, left => L1, right => L2);
+      T.Mem_Set(L1, (format => Signed_Integer, signed_value => 4));
+      T.Mem_Set(L2, (format => Signed_Integer, signed_value => 2));
+
+      T.Step;
+      Assert(T.Mem_Get(L0).format = Signed_Integer, "Local(0) was not 'Signed_Integer'.");
+      Assert(T.Mem_Get(L0).signed_value = 0, "Local(0) was not 4%2=0.");
+   end Run_Test;
+
+   -----------------------------------------------------------------------------
    function Name (T : Test_5) return AUnit.Message_String is
       pragma Unreferenced (T);
    begin

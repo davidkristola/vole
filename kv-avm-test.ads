@@ -52,6 +52,10 @@ package kv.avm.Test is
    function Name (T : Test_4) return AUnit.Message_String;
    procedure Run_Test (T : in out Test_4);
 
+   type Test_4b is new Instruction_Test_Case with null record;
+   function Name (T : Test_4b) return AUnit.Message_String;
+   procedure Run_Test (T : in out Test_4b);
+
    type Test_5 is new Instruction_Test_Case with null record;
    function Name (T : Test_5) return AUnit.Message_String;
    procedure Run_Test (T : in out Test_5);

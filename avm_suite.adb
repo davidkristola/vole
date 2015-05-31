@@ -12,6 +12,7 @@ package body avm_suite is
       Answer.Add_Test(new kv.avm.Test.Test_2);
       Answer.Add_Test(new kv.avm.Test.Test_3);
       Answer.Add_Test(new kv.avm.Test.Test_4);
+      Answer.Add_Test(new kv.avm.Test.Test_4b);
       Answer.Add_Test(new kv.avm.Test.Test_5);
       Answer.Add_Test(new kv.avm.Test.Test_6);
       Answer.Add_Test(new kv.avm.Test.Test_6b);
