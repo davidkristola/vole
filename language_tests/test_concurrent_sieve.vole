@@ -12,7 +12,7 @@ actor Filter {
 
    method forward(value : Integer) returns () {
       if self.Ready then {
-         send self.Next(value);
+         send self.Next.filter(value);
       } else {
          self.Next := new Filter(value);
          self.Ready := True;
@@ -22,6 +22,14 @@ actor Filter {
    message filter(value : Integer) returns () {
       if value % self.Prime /= 0 then {
          return self.forward(value);
+      };
+   };
+
+   message get_largest_prime() returns (value : Integer) {
+      if self.Ready then {
+         return self.Next.get_largest_prime();
+      } else {
+         return self.Prime;
       };
    };
 };
@@ -36,5 +44,8 @@ actor Driver {
          send calculator.filter(value);
          value := value + 1;
       };
+      local largest : Integer;
+      largest := calculator.get_largest_prime();
+      assert largest = 997;
    };
 };

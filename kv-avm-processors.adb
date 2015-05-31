@@ -273,6 +273,7 @@ package body kv.avm.Processors is
    function U_Sub is new U_Op(Interfaces."-");
    function U_Mul is new U_Op(Interfaces."*");
    function U_Div is new U_Op(Interfaces."/");
+   function U_Mod is new U_Op(Interfaces."mod");
 
    -----------------------------------------------------------------------------
    generic
@@ -288,6 +289,7 @@ package body kv.avm.Processors is
    function S_Sub is new S_Op(Interfaces."-");
    function S_Mul is new S_Op(Interfaces."*");
    function S_Div is new S_Op(Interfaces."/");
+   function S_Mod is new S_Op(Interfaces."mod");
 
    function Unimplemented_Op(Lhs : Register_Type; Rhs : Register_Type) return Register_Type is
    begin
@@ -314,6 +316,10 @@ package body kv.avm.Processors is
    Div_Operations : constant Operation_Lookup_Table_Type :=
       (Signed_Integer   => S_Div'ACCESS,
        Unsigned_Integer => U_Div'ACCESS,
+       others           => Unimplemented_Op'ACCESS);
+   Mod_Operations : constant Operation_Lookup_Table_Type :=
+      (Signed_Integer   => S_Mod'ACCESS,
+       Unsigned_Integer => U_Mod'ACCESS,
        others           => Unimplemented_Op'ACCESS);
 
 
@@ -437,6 +443,8 @@ package body kv.avm.Processors is
    -----------------------------------------------------------------------------
    procedure Divide_Instance is new Generic_Operation(Div_Operations);
 
+   -----------------------------------------------------------------------------
+   procedure Modulo_Instance is new Generic_Operation(Mod_Operations);
 
    -----------------------------------------------------------------------------
    procedure Branch
@@ -570,6 +578,8 @@ package body kv.avm.Processors is
             Multiply_Instance(Self, Frame, Instr.Result, Instr.Left, Instr.Right);
          when Div =>
             Divide_Instance(Self, Frame, Instr.Result, Instr.Left, Instr.Right);
+         when Modulo =>
+            Modulo_Instance(Self, Frame, Instr.Result, Instr.Left, Instr.Right);
          when Compare_Type =>
             X := Frame.Get(Instr.Left);
             Y := Frame.Get(Instr.Right);
