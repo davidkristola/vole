@@ -21,5 +21,5 @@ volec ../test_4.vole && volem ../test_4.volec Driver go 1;
 }
 
 cd obj
-(mk_t && mk_v && mk_m && ../rebuild && tst_3 && tst_4 && cd .. && obj/test_avm && test.sh) | tee results.txt
+(mk_t && mk_v && mk_m && ../rebuild.sh && tst_3 && tst_4 && cd .. && obj/test_avm && test.sh) | tee results.txt
 

@@ -1,0 +1,6 @@
+Pony (an actor language), https://tutorial.ponylang.org/expressions/methods.html
+   -- has positional and named method arguments using the keyword "where"
+
+Pony has some other interesting features including named constructors (additional to
+unnamed) and a strange exception handling system.
+
